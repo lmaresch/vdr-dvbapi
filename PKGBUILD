@@ -6,7 +6,7 @@ pkgver=2.2.5
 epoch=1
 _gitver=cd1f00caa271c02641a13c541afaa9b3c0d695c1
 _vdrapi=2.4.6
-pkgrel=3
+pkgrel=4
 pkgdesc="A bridge between VDR and OScam."
 url="https://github.com/manio/vdr-plugin-dvbapi"
 arch=('x86_64' 'i686')
@@ -26,12 +26,12 @@ pkgver() {
 build() {
   cd "${srcdir}/vdr-plugin-${_plugname}"
   sed -i 's/ -fdiagnostics-color=auto//g' Makefile
-  make LIBDVBCSA=1
+  make
 }
 
 package() {
   cd "${srcdir}/vdr-plugin-${_plugname}"
-  make LIBDVBCSA=1 DESTDIR="$pkgdir" install
+  make DESTDIR="$pkgdir" install
 
   mkdir -p "$pkgdir/etc/vdr/conf.avail"
   echo "[$_plugname]" > "$pkgdir/etc/vdr/conf.avail/50-$_plugname.conf"
